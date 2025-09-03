@@ -227,7 +227,7 @@ export default function MediaUpload({
             className={cn(
               "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-300",
               glassmorphism.card,
-              shadows.soft,
+              shadows.default,
               isDragActive 
                 ? 'border-red-500 bg-red-50/50 dark:bg-red-950/20 scale-105' 
                 : 'border-gray-300 dark:border-gray-600 hover:border-red-400 dark:hover:border-red-500 hover:scale-102'
@@ -317,10 +317,10 @@ export default function MediaUpload({
                   className={cn(
                     "border rounded-lg p-4 space-y-4 animate-fade-in-up",
                     glassmorphism.card,
-                    shadows.soft,
+                    shadows.default,
                     "bg-white/50 dark:bg-gray-900/50 border-white/30 dark:border-white/10"
                   )}
-                  style={staggeredDelay(index)}
+                  style={animations.staggerDelay(index)}
                 >
                   <div className="flex items-start gap-4">
                     {/* File Preview */}

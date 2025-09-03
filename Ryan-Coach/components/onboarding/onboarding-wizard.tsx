@@ -88,7 +88,7 @@ function WelcomeStep({ onNext, isFirst, isLast }: OnboardingStepProps) {
         </div>
         <div>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome to GoRedShirt, {user?.firstName || 'Athlete'}!
+            Welcome to GoRedShirt, Athlete!
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             You're about to join the premier platform for athletic performance and recruiting. 

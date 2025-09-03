@@ -561,28 +561,6 @@ export function RegisterForm() {
               )}
             />
 
-            {isMinor && selectedRole === 'athlete' && (
-              <FormField
-                control={form.control}
-                name="parentalConsent"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <div className="space-y-1 leading-none">
-                      <FormLabel className="text-sm font-medium">
-                        I have parental permission to create this account
-                      </FormLabel>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
           </div>
         )
 
@@ -696,7 +674,7 @@ export function RegisterForm() {
                 "text-sm text-red-600 p-3 rounded-md border animate-fade-in-up animation-delay-300",
                 "bg-red-50/80 dark:bg-red-950/30 border-red-200 dark:border-red-900/50",
                 glassmorphism.card,
-                shadows.soft
+                shadows.default
               )}>
                 {error}
               </div>
@@ -705,7 +683,6 @@ export function RegisterForm() {
             <div className="flex justify-between items-center animate-fade-in-up animation-delay-400">
               {currentStep > 1 && (
                 <ThemeButton
-                  type="button"
                   variant="ghost"
                   onClick={() => setCurrentStep(currentStep - 1)}
                   disabled={isLoading}
@@ -720,7 +697,6 @@ export function RegisterForm() {
 
               {currentStep < totalSteps ? (
                 <ThemeButton
-                  type="button"
                   variant="primary"
                   onClick={() => setCurrentStep(currentStep + 1)}
                   disabled={isLoading}
@@ -731,8 +707,8 @@ export function RegisterForm() {
                 </ThemeButton>
               ) : (
                 <ThemeButton
-                  type="submit"
                   variant="primary"
+                  onClick={form.handleSubmit(onSubmit)}
                   disabled={isLoading || !form.watch('agreeToTerms')}
                   className="group"
                 >

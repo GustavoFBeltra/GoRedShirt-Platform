@@ -48,7 +48,7 @@ export const registerSchema = z.object({
   password: passwordSchema,
   confirmPassword: z.string(),
   role: z.enum(['athlete', 'coach', 'parent', 'recruiter'], {
-    errorMap: () => ({ message: 'Please select a valid role' })
+    message: 'Please select a valid role'
   }),
   terms: z.boolean().refine(val => val === true, {
     message: 'You must accept the terms and conditions'
@@ -182,7 +182,7 @@ export function validateAndSanitizeInput<T>(
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        errors: error.errors.map(err => `${err.path.join('.')}: ${err.message}`)
+        errors: error.issues.map(err => `${err.path.join('.')}: ${err.message}`)
       }
     }
     

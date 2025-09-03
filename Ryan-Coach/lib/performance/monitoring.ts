@@ -79,8 +79,8 @@ class PerformanceMonitor {
             const pageMetric: PageLoadMetrics = {
               url: window.location.href,
               timestamp: Date.now(),
-              loadTime: perfData.loadEventEnd - perfData.navigationStart,
-              domContentLoaded: perfData.domContentLoadedEventEnd - perfData.navigationStart
+              loadTime: perfData.loadEventEnd - perfData.startTime,
+              domContentLoaded: perfData.domContentLoadedEventEnd - perfData.startTime
             }
 
             this.pageMetrics.push(pageMetric)
@@ -249,18 +249,18 @@ class PerformanceMonitor {
 
     // Summarize web vitals
     this.metrics.forEach(metric => {
-      if (!summary.webVitals[metric.name]) {
-        summary.webVitals[metric.name] = {
+      if (!(summary.webVitals as any)[metric.name]) {
+        (summary.webVitals as any)[metric.name] = {
           values: [],
           rating: metric.rating
         }
       }
-      summary.webVitals[metric.name].values.push(metric.value)
+      (summary.webVitals as any)[metric.name].values.push(metric.value)
     })
 
     // Summarize page loads
     if (this.pageMetrics.length > 0) {
-      const totalLoadTime = this.pageMetrics.reduce((sum, metric) => sum + metric.loadTime, 0)
+      const totalLoadTime = this.pageMetrics.reduce((sum: number, metric: any) => sum + metric.loadTime, 0)
       summary.pageLoads.average = totalLoadTime / this.pageMetrics.length
       summary.pageLoads.count = this.pageMetrics.length
     }
@@ -274,27 +274,27 @@ class PerformanceMonitor {
     const summary = this.getPerformanceSummary()
 
     // Check LCP
-    const lcpMetrics = summary.webVitals['LCP']?.values || []
+    const lcpMetrics = (summary.webVitals as any)['LCP']?.values || []
     if (lcpMetrics.length > 0) {
-      const avgLCP = lcpMetrics.reduce((a, b) => a + b, 0) / lcpMetrics.length
+      const avgLCP = lcpMetrics.reduce((a: number, b: number) => a + b, 0) / lcpMetrics.length
       if (avgLCP > 2500) {
         suggestions.push('Large Contentful Paint is slow. Consider optimizing images and reducing server response times.')
       }
     }
 
     // Check FID
-    const fidMetrics = summary.webVitals['FID']?.values || []
+    const fidMetrics = (summary.webVitals as any)['FID']?.values || []
     if (fidMetrics.length > 0) {
-      const avgFID = fidMetrics.reduce((a, b) => a + b, 0) / fidMetrics.length
+      const avgFID = fidMetrics.reduce((a: number, b: number) => a + b, 0) / fidMetrics.length
       if (avgFID > 100) {
         suggestions.push('First Input Delay is high. Consider reducing JavaScript execution time and breaking up long tasks.')
       }
     }
 
     // Check CLS
-    const clsMetrics = summary.webVitals['CLS']?.values || []
+    const clsMetrics = (summary.webVitals as any)['CLS']?.values || []
     if (clsMetrics.length > 0) {
-      const avgCLS = clsMetrics.reduce((a, b) => a + b, 0) / clsMetrics.length
+      const avgCLS = clsMetrics.reduce((a: number, b: number) => a + b, 0) / clsMetrics.length
       if (avgCLS > 0.1) {
         suggestions.push('Cumulative Layout Shift is high. Ensure images have explicit dimensions and avoid inserting content above existing content.')
       }
@@ -315,7 +315,7 @@ export const performanceMonitor = new PerformanceMonitor()
 // React hook for component performance monitoring
 export function usePerformanceTimer(componentName: string) {
   const { useEffect, useRef } = require('react')
-  const timerRef = useRef<(() => number) | null>(null)
+  const timerRef = useRef(null) as any
 
   useEffect(() => {
     timerRef.current = performanceMonitor.startTimer(`Component:${componentName}`)
@@ -366,9 +366,9 @@ export class PerformanceOptimizer {
   ): (...args: Parameters<T>) => void {
     let inThrottle: boolean
 
-    return function executedFunction(...args: Parameters<T>) {
+    return (...args: Parameters<T>) => {
       if (!inThrottle) {
-        func.apply(this, args)
+        func(...args)
         inThrottle = true
         setTimeout(() => (inThrottle = false), limit)
       }
@@ -429,7 +429,7 @@ export class PerformanceOptimizer {
     if (typeof window === 'undefined') return
 
     const scripts = Array.from(document.scripts)
-    const totalSize = scripts.reduce((size, script) => {
+    const totalSize = scripts.reduce((size: number, script: any) => {
       if (script.src && script.src.includes('/_next/')) {
         // Estimate size - in production, use actual bundle analysis
         return size + 100000 // 100KB estimate per script

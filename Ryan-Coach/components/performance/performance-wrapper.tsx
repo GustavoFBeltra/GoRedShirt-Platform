@@ -231,13 +231,13 @@ export function PerformanceMetrics() {
       
       <div className="space-y-1">
         {Object.entries(summary.webVitals).map(([name, data]) => {
-          const values = data.values
-          const avg = values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0
+          const values = (data as any).values
+          const avg = values.length > 0 ? values.reduce((a: number, b: number) => a + b, 0) / values.length : 0
           
           return (
             <div key={name} className="flex justify-between">
               <span>{name}:</span>
-              <span className={`${data.rating === 'good' ? 'text-green-400' : data.rating === 'needs-improvement' ? 'text-yellow-400' : 'text-red-400'}`}>
+              <span className={`${(data as any).rating === 'good' ? 'text-green-400' : (data as any).rating === 'needs-improvement' ? 'text-yellow-400' : 'text-red-400'}`}>
                 {Math.round(avg)} {name === 'CLS' ? '' : 'ms'}
               </span>
             </div>

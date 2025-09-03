@@ -249,7 +249,7 @@ interface ButtonVariantProps {
 }
 
 export function ThemeButton({ 
-  variant = 'default', 
+  variant = 'primary', 
   size = 'default', 
   children, 
   className,

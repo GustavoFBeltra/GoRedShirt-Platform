@@ -99,6 +99,29 @@ export default function SportsPerformanceTracker() {
     { date: 'Apr', fortyTime: 4.52, verticalJump: 35.5, benchPress: 22, broadJump: 124 }
   ]
 
+  const getPerformanceScore = (metric: string, value: number, sport: string) => {
+    const benchmarks = eliteBenchmarks[sport as keyof typeof eliteBenchmarks]
+    const benchmark = benchmarks[metric as keyof typeof benchmarks]
+    if (!benchmark || !value) return 0
+    
+    if (metric === 'forty_yard_dash' || metric === 'three_cone_drill' || metric === 'mile_time') {
+      // Lower is better for time-based metrics
+      if (value <= benchmark.excellent) return 100
+      if (value <= benchmark.good) return 80
+      if (value <= benchmark.average) return 60
+      return Math.max(40, 100 - ((value - benchmark.average) / benchmark.average) * 100)
+    } else {
+      // Higher is better for other metrics
+      if (value >= benchmark.excellent) return 100
+      if (value >= benchmark.good) return 80
+      if (value >= benchmark.average) return 60
+      return Math.min(100, (value / benchmark.average) * 60)
+    }
+  }
+
+  const latestCombine = combineMetrics[0]
+  const latestPerformance = sportPerformance[0]
+
   const athleticProfileData = [
     { metric: 'Speed', value: getPerformanceScore('forty_yard_dash', latestCombine?.forty_yard_dash || 0, selectedSport), fullMark: 100 },
     { metric: 'Power', value: getPerformanceScore('vertical_jump', latestCombine?.vertical_jump || 0, selectedSport), fullMark: 100 },
@@ -255,28 +278,6 @@ export default function SportsPerformanceTracker() {
     }
   }
 
-  const getPerformanceScore = (metric: string, value: number, sport: string) => {
-    const benchmarks = eliteBenchmarks[sport as keyof typeof eliteBenchmarks]
-    const benchmark = benchmarks[metric as keyof typeof benchmarks]
-    if (!benchmark || !value) return 0
-    
-    if (metric === 'forty_yard_dash' || metric === 'three_cone_drill' || metric === 'mile_time') {
-      // Lower is better for time-based metrics
-      if (value <= benchmark.excellent) return 100
-      if (value <= benchmark.good) return 80
-      if (value <= benchmark.average) return 60
-      return Math.max(40, 100 - ((value - benchmark.average) / benchmark.average) * 100)
-    } else {
-      // Higher is better for other metrics
-      if (value >= benchmark.excellent) return 100
-      if (value >= benchmark.good) return 80
-      if (value >= benchmark.average) return 60
-      return Math.min(100, (value / benchmark.average) * 60)
-    }
-  }
-
-  const latestCombine = combineMetrics[0]
-  const latestPerformance = sportPerformance[0]
 
   if (loading) {
     return (
@@ -336,8 +337,8 @@ export default function SportsPerformanceTracker() {
           <CardContent>
             <div className="text-2xl font-bold">{latestCombine?.forty_yard_dash || '--'}s</div>
             {latestCombine?.forty_yard_dash && (
-              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('forty_yard_dash', latestCombine.forty_yard_dash, selectedSport))}`}>
-                {getPerformanceRating('forty_yard_dash', latestCombine.forty_yard_dash, selectedSport)}
+              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('forty_yard_dash', latestCombine?.forty_yard_dash || 0, selectedSport))}`}>
+                {getPerformanceRating('forty_yard_dash', latestCombine?.forty_yard_dash || 0, selectedSport)}
               </Badge>
             )}
           </CardContent>
@@ -353,8 +354,8 @@ export default function SportsPerformanceTracker() {
           <CardContent>
             <div className="text-2xl font-bold">{latestCombine?.vertical_jump || '--'}"</div>
             {latestCombine?.vertical_jump && (
-              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('vertical_jump', latestCombine.vertical_jump, selectedSport))}`}>
-                {getPerformanceRating('vertical_jump', latestCombine.vertical_jump, selectedSport)}
+              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('vertical_jump', latestCombine?.vertical_jump || 0, selectedSport))}`}>
+                {getPerformanceRating('vertical_jump', latestCombine?.vertical_jump || 0, selectedSport)}
               </Badge>
             )}
           </CardContent>
@@ -370,8 +371,8 @@ export default function SportsPerformanceTracker() {
           <CardContent>
             <div className="text-2xl font-bold">{latestCombine?.bench_press_reps || '--'} reps</div>
             {latestCombine?.bench_press_reps && (
-              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('bench_press_reps', latestCombine.bench_press_reps, selectedSport))}`}>
-                {getPerformanceRating('bench_press_reps', latestCombine.bench_press_reps, selectedSport)}
+              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('bench_press_reps', latestCombine?.bench_press_reps || 0, selectedSport))}`}>
+                {getPerformanceRating('bench_press_reps', latestCombine?.bench_press_reps || 0, selectedSport)}
               </Badge>
             )}
           </CardContent>
@@ -387,8 +388,8 @@ export default function SportsPerformanceTracker() {
           <CardContent>
             <div className="text-2xl font-bold">{latestCombine?.broad_jump || '--'}"</div>
             {latestCombine?.broad_jump && (
-              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('broad_jump', latestCombine.broad_jump, selectedSport))}`}>
-                {getPerformanceRating('broad_jump', latestCombine.broad_jump, selectedSport)}
+              <Badge className={`mt-2 ${getRatingColor(getPerformanceRating('broad_jump', latestCombine?.broad_jump || 0, selectedSport))}`}>
+                {getPerformanceRating('broad_jump', latestCombine?.broad_jump || 0, selectedSport)}
               </Badge>
             )}
           </CardContent>
@@ -614,16 +615,16 @@ export default function SportsPerformanceTracker() {
                         <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                           <span className="font-medium">40-Yard Dash</span>
                           <div className="text-right">
-                            <div className="font-bold">{latestCombine.forty_yard_dash}s</div>
+                            <div className="font-bold">{latestCombine?.forty_yard_dash || 0}s</div>
                             <Badge variant="outline" className="text-xs">
-                              {getPerformanceRating('forty_yard_dash', latestCombine.forty_yard_dash, selectedSport)}
+                              {getPerformanceRating('forty_yard_dash', latestCombine?.forty_yard_dash || 0, selectedSport)}
                             </Badge>
                           </div>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                           <span className="font-medium">3-Cone Drill</span>
                           <div className="text-right">
-                            <div className="font-bold">{latestCombine.three_cone_drill}s</div>
+                            <div className="font-bold">{latestCombine?.three_cone_drill || 0}s</div>
                             <Badge variant="outline" className="text-xs">Good</Badge>
                           </div>
                         </div>
@@ -636,18 +637,18 @@ export default function SportsPerformanceTracker() {
                         <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                           <span className="font-medium">Vertical Jump</span>
                           <div className="text-right">
-                            <div className="font-bold">{latestCombine.vertical_jump}"</div>
+                            <div className="font-bold">{latestCombine?.vertical_jump || 0}"</div>
                             <Badge variant="outline" className="text-xs">
-                              {getPerformanceRating('vertical_jump', latestCombine.vertical_jump, selectedSport)}
+                              {getPerformanceRating('vertical_jump', latestCombine?.vertical_jump || 0, selectedSport)}
                             </Badge>
                           </div>
                         </div>
                         <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg">
                           <span className="font-medium">Bench Press (225 lbs)</span>
                           <div className="text-right">
-                            <div className="font-bold">{latestCombine.bench_press_reps} reps</div>
+                            <div className="font-bold">{latestCombine?.bench_press_reps || 0} reps</div>
                             <Badge variant="outline" className="text-xs">
-                              {getPerformanceRating('bench_press_reps', latestCombine.bench_press_reps, selectedSport)}
+                              {getPerformanceRating('bench_press_reps', latestCombine?.bench_press_reps || 0, selectedSport)}
                             </Badge>
                           </div>
                         </div>
@@ -660,15 +661,15 @@ export default function SportsPerformanceTracker() {
                     <div className="grid gap-4 md:grid-cols-3">
                       <div className="p-3 bg-muted/50 rounded-lg">
                         <span className="text-sm text-muted-foreground">Height</span>
-                        <div className="font-bold text-lg">{latestCombine.height_inches}"</div>
+                        <div className="font-bold text-lg">{latestCombine?.height_inches || 0}"</div>
                       </div>
                       <div className="p-3 bg-muted/50 rounded-lg">
                         <span className="text-sm text-muted-foreground">Weight</span>
-                        <div className="font-bold text-lg">{latestCombine.weight_lbs} lbs</div>
+                        <div className="font-bold text-lg">{latestCombine?.weight_lbs || 0} lbs</div>
                       </div>
                       <div className="p-3 bg-muted/50 rounded-lg">
                         <span className="text-sm text-muted-foreground">Body Fat %</span>
-                        <div className="font-bold text-lg">{latestCombine.body_fat_percentage}%</div>
+                        <div className="font-bold text-lg">{latestCombine?.body_fat_percentage || 0}%</div>
                       </div>
                     </div>
                   </div>

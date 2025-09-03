@@ -105,12 +105,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
           if (!error && userData) {
             console.log('Initial session: Got role:', userData.role)
-            const roles = userRoles.map(r => r.role)
+            const roles = userRoles?.map(r => r.role as UserRole) || []
             const authUser: AuthUser = {
               ...session.user,
-              role: userData.role,
-              roles: roles.length > 0 ? roles : [userData.role],
-              profile: profileData || undefined
+              role: userData.role as UserRole,
+              roles: roles.length > 0 ? roles : [userData.role as UserRole],
+              profile: profileData ? {
+                id: profileData.id,
+                display_name: profileData.display_name || undefined,
+                is_minor: profileData.is_minor || undefined,
+                visibility: profileData.visibility || undefined
+              } : undefined
             }
             setUser(authUser)
           } else {
@@ -197,7 +202,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
 
             const result = await Promise.race([fetchPromise(), timeoutPromise])
-            const { userData, error, userRoles, profileData } = result
+            const { userData, error, userRoles, profileData } = result as { userData: any, error: any, userRoles: any[], profileData: any }
 
             console.log('Auth state: User data fetch result:', { userData, error, userRoles, profileData })
 
@@ -313,7 +318,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       parentEmail?: string
     }
   ) => {
-    const primaryRole = userData?.role || 'athlete'
+    // Map athlete to client for database compatibility
+    const rawRole = userData?.role as any
+    const mappedRole = rawRole === 'athlete' ? 'client' : (userData?.role || 'client')
+    const primaryRole = mappedRole as UserRole
     const allRoles = userData?.roles || [primaryRole]
 
     const { data, error } = await supabase.auth.signUp({
@@ -357,7 +365,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             display_name: userData?.name || null,
             location: userData?.location || null,
             school: userData?.school || null,
-            visibility: primaryRole === 'athlete' ? 'public' : 'private',
+            visibility: rawRole === 'athlete' ? 'public' : 'private',
             dob: userData?.dateOfBirth || null,
           })
 
@@ -368,7 +376,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Create user_roles entries for multi-role support
         const roleInserts = allRoles.map(role => ({
-          user_id: data.user.id,
+          user_id: data.user!.id,
           role,
           granted_at: new Date().toISOString(),
         }))
@@ -397,7 +405,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
 
         // Handle parental consent for minors
-        if (isMinor && userData?.parentEmail && primaryRole === 'athlete') {
+        if (isMinor && userData?.parentEmail && rawRole === 'athlete') {
           // Note: In a real implementation, you'd send a consent email to the parent
           // For now, we'll create a pending consent record
           const { error: consentError } = await supabase

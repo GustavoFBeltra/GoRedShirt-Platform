@@ -52,7 +52,7 @@ export function Skeleton({
 
 export function CardSkeleton() {
   return (
-    <div className={cn("p-6 rounded-lg", glassmorphism.card, shadows.soft, "animate-fade-in-up")}>
+    <div className={cn("p-6 rounded-lg", glassmorphism.card, shadows.default, "animate-fade-in-up")}>
       <div className="space-y-4">
         <div className="flex items-center space-x-4">
           <Skeleton variant="circle" width={48} height={48} />
@@ -75,7 +75,7 @@ export function ListSkeleton({ items = 5 }: { items?: number }) {
   return (
     <div className="space-y-4">
       {Array.from({ length: items }, (_, i) => (
-        <div key={i} className={cn("p-4 rounded-lg", glassmorphism.card, shadows.soft, "animate-fade-in-up")} style={{ animationDelay: `${i * 100}ms` }}>
+        <div key={i} className={cn("p-4 rounded-lg", glassmorphism.card, shadows.default, "animate-fade-in-up")} style={{ animationDelay: `${i * 100}ms` }}>
           <div className="flex items-center space-x-4">
             <Skeleton variant="circle" width={40} height={40} />
             <div className="flex-1 space-y-2">

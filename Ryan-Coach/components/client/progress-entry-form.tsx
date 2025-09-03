@@ -21,7 +21,7 @@ const progressSchema = z.object({
   sleep_quality: z.number().min(1).max(10).optional(),
   stress_level: z.number().min(1).max(10).optional(),
   notes: z.string().max(1000).optional(),
-  measurements: z.record(z.number()).optional(),
+  measurements: z.record(z.string(), z.number()).optional(),
   workout_intensity: z.number().min(1).max(10).optional(),
   nutrition_adherence: z.number().min(1).max(10).optional(),
 })

@@ -119,7 +119,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                       "border-white/40 dark:border-white/20 group-hover:border-red-500/40",
                       animations.transition.default
                     )}>
-                      {user.role?.charAt(0).toUpperCase() + user.role?.slice(1) || 'Client'}
+                      {user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Client'}
                     </span>
                   </div>
 
