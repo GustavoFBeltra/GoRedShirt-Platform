@@ -150,9 +150,9 @@ export function LoginForm() {
                         className="pr-10 transition-all duration-200 focus:scale-[1.01] focus:shadow-md"
                         onFocus={() => setIsPasswordFocused(true)}
                         {...field}
-                        onBlur={(e) => {
+                        onBlur={() => {
                           setIsPasswordFocused(false)
-                          field.onBlur(e)
+                          field.onBlur()
                         }}
                       />
                       <Button
