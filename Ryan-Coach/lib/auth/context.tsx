@@ -79,7 +79,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 .single()
             ])
             
+            console.log('Initial session: Query results:', {
+              userResult: { data: userResult.data, error: userResult.error },
+              rolesResult: { data: rolesResult.data, error: rolesResult.error },
+              profileResult: { data: profileResult.data, error: profileResult.error }
+            })
+            
             if (userResult.error && session.user.email) {
+              console.log('Initial session: ID lookup failed, trying email fallback for:', session.user.email)
               // If ID doesn't match, try with email as fallback
               const emailUserResult = await supabase
                 .from('users')
@@ -87,6 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 .eq('email', session.user.email)
                 .single()
               
+              console.log('Initial session: Email fallback result:', emailUserResult)
               userData = emailUserResult.data
               error = emailUserResult.error
             } else {
@@ -104,6 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
 
           if (!error && userData) {
+            console.log('Initial session: Got user data:', userData)
             console.log('Initial session: Got role:', userData.role)
             const roles = userRoles?.map(r => r.role as UserRole) || []
             const authUser: AuthUser = {
@@ -117,9 +126,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 visibility: profileData.visibility || undefined
               } : undefined
             }
+            console.log('Initial session: Setting authUser with role:', authUser.role, 'email:', authUser.email)
             setUser(authUser)
           } else {
             console.log('Initial session: Error fetching role:', error)
+            console.log('Initial session: userData was:', userData)
             console.log('Initial session: Using default role for user:', session.user.email)
             setUser({ ...session.user, role: 'client', roles: ['client'] } as AuthUser)
           }

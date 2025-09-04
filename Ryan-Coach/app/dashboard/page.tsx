@@ -20,6 +20,9 @@ export default function DashboardPage() {
   }
 
   const renderDashboard = () => {
+    console.log('Dashboard: Current user role:', user?.role)
+    console.log('Dashboard: User email:', user?.email)
+    
     switch (user?.role) {
       case 'admin':
         return <AdminDashboard />
@@ -27,7 +30,14 @@ export default function DashboardPage() {
         return <CoachDashboard />
       case 'client':
         return <ClientDashboard />
+      case 'athlete':
+        return <ClientDashboard />
+      case 'recruiter':
+        return <RecruiterDashboard />
+      case 'parent':
+        return <ParentDashboard />
       default:
+        console.log('Dashboard: Falling back to ClientDashboard for role:', user?.role)
         return <ClientDashboard />
     }
   }
