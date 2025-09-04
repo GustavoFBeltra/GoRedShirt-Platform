@@ -342,9 +342,9 @@ export function ThemeIcon({
   className 
 }: ThemeIconProps) {
   const variants = {
-    primary: cn('p-1.5 rounded-lg bg-gradient-to-br', theme.gradients.primary, 'text-white'),
-    foundation: cn('p-1.5 rounded-lg bg-gradient-to-br', theme.gradients.foundation, 'text-white'),
-    glass: cn('p-1.5 rounded-lg', glassmorphism.overlay, 'text-gray-700 dark:text-gray-300')
+    primary: cn('p-1 rounded bg-gradient-to-br', theme.gradients.primary, 'text-white'),
+    foundation: cn('p-1 rounded bg-gradient-to-br', theme.gradients.foundation, 'text-white'),
+    glass: cn('p-1 rounded', glassmorphism.overlay, 'text-gray-700 dark:text-gray-300')
   }
   
   return (
