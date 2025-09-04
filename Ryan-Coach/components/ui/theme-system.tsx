@@ -312,7 +312,7 @@ export function ThemeButton({
   return (
     <button 
       className={cn(
-        'rounded-lg font-medium',
+        'rounded-lg font-medium flex items-center justify-center',
         'focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2',
         variants[variant], 
         sizes[size], 
