@@ -188,6 +188,8 @@ interface CardVariantProps {
   children: ReactNode
   className?: string
   onClick?: () => void
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
   style?: React.CSSProperties
 }
 
@@ -197,6 +199,8 @@ export function ThemeCard({
   children, 
   className,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   style 
 }: CardVariantProps) {
   const variants = {
@@ -231,6 +235,8 @@ export function ThemeCard({
     <div 
       className={cn(variants[variant], sizes[size], className)}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       style={style}
     >
       {children}

@@ -9,6 +9,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ```bash
+# Working directory: Ryan-Coach/
+cd Ryan-Coach
+
+# Core development
 npm run dev          # Start development server on localhost:3000
 npm run build        # Build production application
 npm run start        # Start production server
@@ -40,6 +44,7 @@ npx supabase gen types typescript --project-id ozrdyxfvlltbgugukpma > lib/databa
 - **Media**: React Dropzone with file upload and organization system
 - **Charts**: Recharts for performance analytics and data visualization
 - **Deployment**: Vercel (Project ID: prj_npLR65jEgDt9UuVeyBm3PP3BkCFl)
+  - Production URL: https://goredshirt-platform.vercel.app
 
 ### Project Structure
 - `Ryan-Coach/` - Main application directory
@@ -69,11 +74,11 @@ Located in `.mcp.json` in parent directory. Key servers:
 - **Playwright**: E2E testing with output to `playwright-output/`
 - **Semgrep**: Security scanning for project vulnerabilities
 
-## Development Phases & Current Status
+## Current Production Status
 
-**Current Status**: Week 5-6 Completed - Ready for Week 7-8 (Communication & Marketplace)
+**Production Deployment**: https://goredshirt-platform.vercel.app
 
-### Completed Features
+### Completed Core Features
 - ✅ **Core Infrastructure**: Next.js 14, Supabase, Stripe Organizations setup
 - ✅ **Authentication System**: Multi-role auth with enhanced context (athlete, coach, recruiter, parent, admin)
 - ✅ **Registration System**: Multi-step registration with role-specific flows and sport selection
@@ -83,14 +88,6 @@ Located in `.mcp.json` in parent directory. Key servers:
 - ✅ **Media Management**: Drag-and-drop upload system with organization and gallery
 - ✅ **Discovery System**: Comprehensive athlete search with advanced filtering
 - ✅ **UI/Design System**: shadcn/ui with GoRedShirt branding and advanced animations
-
-### Phase Timeline
-1. **Week 1-2**: Foundation & Setup ✅ COMPLETED
-2. **Week 3-4**: Core Features (Profiles & Metrics) ✅ COMPLETED  
-3. **Week 5-6**: Media Management & Discovery ✅ COMPLETED
-4. **Week 7-8**: Communication & Marketplace ⏳ NEXT
-5. **Week 9-10**: Beta Launch ⏳ PENDING
-6. **Week 11-12**: Public Launch ⏳ PENDING
 
 ## Database Schema
 
@@ -228,3 +225,23 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - **API Routes**: Next.js API routes for server-side operations
 - **Client Components**: React hooks for data fetching and state management
 - **Server Components**: Default for pages with client components where needed
+
+## Testing & Quality Assurance
+
+### Code Quality
+- **ESLint**: Configured for Next.js with TypeScript support
+- **TypeScript**: Strict mode enabled for type safety
+- **Semgrep**: Security vulnerability scanning via MCP server
+
+### Testing Infrastructure
+- **Playwright**: Browser automation testing with output to `playwright-output/`
+- **MCP Testing**: Use Playwright MCP server for E2E testing scenarios
+
+## Important Files & Locations
+
+- **Main Application**: `Ryan-Coach/` directory contains all application code
+- **Environment Config**: `.env.local` with Supabase and Stripe keys
+- **MCP Configuration**: `.mcp.json` in parent directory (not in Ryan-Coach/)
+- **Theme Documentation**: `Ryan-Coach/THEME-SYSTEM.md` for UI component patterns
+- **Database Migrations**: `Ryan-Coach/supabase/migrations/` for schema changes
+- **Vercel Config**: `Ryan-Coach/vercel.json` for deployment settings
