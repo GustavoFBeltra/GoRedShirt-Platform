@@ -275,12 +275,12 @@ export default function Home() {
                   )} />
                   
                   <div className="relative space-y-6">
-                    <div className="flex items-center gap-4">
+                    <div className="text-center space-y-4">
                       <ThemeIcon 
                         variant="foundation" 
                         hover="scaleRotateStrong"
                         className={cn(
-                          "transition-all duration-300",
+                          "transition-all duration-300 mx-auto",
                           hoveredCard === 'athletes' && "scale-110 rotate-6"
                         )}
                       >
@@ -341,12 +341,12 @@ export default function Home() {
                   )} />
                   
                   <div className="relative space-y-6">
-                    <div className="flex items-center gap-4">
+                    <div className="text-center space-y-4">
                       <ThemeIcon 
                         variant="primary" 
                         hover="scaleRotateStrong"
                         className={cn(
-                          "transition-all duration-300",
+                          "transition-all duration-300 mx-auto",
                           hoveredCard === 'coaches' && "scale-110 rotate-12"
                         )}
                       >
@@ -400,12 +400,12 @@ export default function Home() {
                   )} />
                   
                   <div className="relative space-y-6">
-                    <div className="flex items-center gap-4">
+                    <div className="text-center space-y-4">
                       <ThemeIcon 
                         variant="foundation" 
                         hover="scaleRotateStrong"
                         className={cn(
-                          "transition-all duration-300",
+                          "transition-all duration-300 mx-auto",
                           hoveredCard === 'recruiters' && "scale-110 rotate-6"
                         )}
                       >
