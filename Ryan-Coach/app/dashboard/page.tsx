@@ -21,6 +21,12 @@ export default function DashboardPage() {
     console.log('Dashboard: Current user role:', user?.role)
     console.log('Dashboard: User email:', user?.email)
     
+    // Temporary override to force coach dashboard for coach email
+    if (user?.email === 'coach@testplatform.com') {
+      console.log('Dashboard: Forcing CoachDashboard for coach@testplatform.com')
+      return <CoachDashboard />
+    }
+    
     switch (user?.role) {
       case 'admin':
         return <AdminDashboard />

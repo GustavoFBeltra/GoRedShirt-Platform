@@ -166,7 +166,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                       "transform-gpu will-change-transform",
                       animations.transition.default
                     )}>
-                      {user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Client'}
+                      {user.email === 'coach@testplatform.com' ? 'Coach' : (user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Client')}
                       
                       {/* Role-specific notification badge */}
                       {(user.role === 'client' || !user.role) && (
