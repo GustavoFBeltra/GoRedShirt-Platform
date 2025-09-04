@@ -86,43 +86,133 @@ export default function Home() {
       
       {/* Content Overlay */}
       <div className="relative z-10">
-        {/* Header */}
-        <header className={cn(
-          "border-b border-white/20 sticky top-0 z-50",
-          glassmorphism.nav
+        {/* Enhanced Floating Pill Navigation */}
+        <nav className={cn(
+          "fixed top-4 left-1/2 transform -translate-x-1/2 z-50",
+          "animate-fade-in-down",
+          animations.transition.smooth
         )}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              <div className="flex items-center">
-                <div className="flex items-center gap-2 group cursor-pointer">
-                  <ThemeIcon variant="primary" hover="scaleRotate">
-                    <div className="relative">
-                      <div className="text-white font-bold text-lg">GR</div>
-                      <div className="absolute inset-0 animate-pulse bg-red-400/20 rounded" />
+          {/* Floating pill container */}
+          <div className="relative">
+            {/* Glass morphism pill with enhanced blur */}
+            <div className={cn(
+              glassmorphism.nav,
+              "rounded-full border border-white/30 dark:border-white/15",
+              shadows.ultra,
+              "shadow-black/5 dark:shadow-black/20",
+              "hover:shadow-red-500/10 dark:hover:shadow-red-500/20",
+              animations.transition.smooth
+            )}>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-red-500/5 to-transparent rounded-full"></div>
+              {/* Enhanced glow effect */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500/10 via-transparent to-red-500/10 rounded-full blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
+            
+              {/* Navigation content */}
+              <div className="relative px-6 py-3">
+                <div className="flex items-center space-x-8">
+              
+                  {/* Enhanced Brand Section */}
+                  <Link 
+                    href="/" 
+                    className={cn(
+                      "group flex items-center space-x-3",
+                      "hover:scale-105",
+                      animations.transition.default
+                    )}
+                  >
+                    <div className={cn(
+                      "w-8 h-8 rounded-lg",
+                      "bg-gradient-to-br from-red-500/20 to-red-600/5 dark:from-red-400/15 dark:to-red-600/5",
+                      "backdrop-blur-sm flex items-center justify-center",
+                      "border border-red-500/25 dark:border-red-400/15",
+                      "group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-red-600/30 group-hover:border-red-500/50",
+                      animations.transition.default
+                    )}>
+                      <span className={cn(
+                        "text-red-600 dark:text-red-400 font-bold text-sm",
+                        "group-hover:scale-110",
+                        animations.transition.transform
+                      )}>
+                        GR
+                      </span>
                     </div>
-                  </ThemeIcon>
-                  <div className={cn("text-xl font-bold", textGradient('primary'))}>
-                    GoRedShirt
+                    <span className="text-lg font-bold bg-gradient-to-r from-gray-900 to-red-600 bg-clip-text text-transparent dark:from-white dark:to-red-400">
+                      GoRedShirt
+                    </span>
+                  </Link>
+
+                  {/* Separator */}
+                  <div className="h-6 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
+
+                  {/* Enhanced Action Buttons */}
+                  <div className="flex items-center space-x-2">
+                    {/* Enhanced Theme Toggle */}
+                    <div className="group relative">
+                      <div className={cn(
+                        "relative rounded-lg backdrop-blur-sm border p-1",
+                        "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
+                        "group-hover:bg-white/50 dark:group-hover:bg-gray-700/50",
+                        animations.transition.default
+                      )}>
+                        <ThemeToggle />
+                      </div>
+                    </div>
+
+                    {/* Enhanced Sign In Button */}
+                    <Link href="/login">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        className={cn(
+                          "group relative overflow-hidden backdrop-blur-sm text-sm",
+                          "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
+                          "hover:bg-white/50 dark:hover:bg-gray-700/50",
+                          "hover:border-red-500/40 dark:hover:border-red-400/40",
+                          "hover:scale-105 hover:shadow-lg hover:shadow-red-500/10",
+                          animations.transition.default
+                        )}
+                      >
+                        <div className={cn(
+                          "absolute inset-0 bg-gradient-to-r from-red-600/8 to-red-500/8",
+                          "opacity-0 group-hover:opacity-100",
+                          animations.transition.default
+                        )}></div>
+                        <span className="relative font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-800 dark:group-hover:text-gray-100">
+                          Sign In
+                        </span>
+                      </Button>
+                    </Link>
+
+                    {/* Enhanced Get Started Button */}
+                    <Link href="/register">
+                      <Button 
+                        size="sm"
+                        className={cn(
+                          "group relative overflow-hidden backdrop-blur-sm text-sm",
+                          "bg-gradient-to-r from-red-600 to-red-700",
+                          "hover:from-red-700 hover:to-red-800",
+                          "text-white border-0",
+                          "hover:scale-105 hover:shadow-lg hover:shadow-red-500/25",
+                          animations.transition.default
+                        )}
+                      >
+                        <div className={cn(
+                          "absolute inset-0 bg-gradient-to-r from-white/10 to-white/5",
+                          "opacity-0 group-hover:opacity-100",
+                          animations.transition.default
+                        )}></div>
+                        <span className="relative font-medium flex items-center">
+                          Get Started
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center space-x-4">
-                <ThemeToggle />
-                <Link href="/login">
-                  <ThemeButton variant="ghost" className="hover:scale-105">
-                    Sign In
-                  </ThemeButton>
-                </Link>
-                <Link href="/register">
-                  <ThemeButton variant="primary">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </ThemeButton>
-                </Link>
-              </div>
             </div>
           </div>
-        </header>
+        </nav>
 
         <main>
           {/* Hero Section */}
