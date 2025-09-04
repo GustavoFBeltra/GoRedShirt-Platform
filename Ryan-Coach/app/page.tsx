@@ -114,12 +114,14 @@ export default function Home() {
               <div className="relative px-4 sm:px-6 py-3">
                 <div className="flex items-center space-x-4 sm:space-x-8">
               
-                  {/* Enhanced Brand Section */}
+                  {/* Enhanced Brand Section with Magnetic Effect */}
                   <Link 
                     href="/" 
                     className={cn(
-                      "group flex items-center space-x-2 sm:space-x-3",
-                      "hover:scale-105",
+                      "group flex items-center space-x-2 sm:space-x-3 relative",
+                      "hover:scale-105 hover:-translate-y-0.5",
+                      "hover:drop-shadow-[0_8px_16px_rgba(220,38,38,0.25)]",
+                      "transform-gpu will-change-transform",
                       animations.transition.default
                     )}
                   >
@@ -149,12 +151,14 @@ export default function Home() {
 
                   {/* Enhanced Action Buttons */}
                   <div className="flex items-center space-x-2">
-                    {/* Enhanced Theme Toggle */}
+                    {/* Enhanced Theme Toggle with Magnetic Effect */}
                     <div className="group relative">
                       <div className={cn(
                         "relative rounded-lg backdrop-blur-sm border p-1",
                         "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
                         "group-hover:bg-white/50 dark:group-hover:bg-gray-700/50",
+                        "hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/10",
+                        "transform-gpu will-change-transform",
                         animations.transition.default
                       )}>
                         <ThemeToggle />
@@ -171,7 +175,8 @@ export default function Home() {
                           "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
                           "hover:bg-white/50 dark:hover:bg-gray-700/50",
                           "hover:border-red-500/40 dark:hover:border-red-400/40",
-                          "hover:scale-105 hover:shadow-lg hover:shadow-red-500/10",
+                          "hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/10",
+                          "transform-gpu will-change-transform",
                           animations.transition.default
                         )}
                       >
@@ -195,7 +200,8 @@ export default function Home() {
                           "bg-gradient-to-r from-red-600 to-red-700",
                           "hover:from-red-700 hover:to-red-800",
                           "text-white border-0",
-                          "hover:scale-105 hover:shadow-lg hover:shadow-red-500/25",
+                          "hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/25",
+                          "transform-gpu will-change-transform",
                           animations.transition.default
                         )}
                       >

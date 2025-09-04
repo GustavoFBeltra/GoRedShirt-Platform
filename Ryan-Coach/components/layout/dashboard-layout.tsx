@@ -74,12 +74,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <div className="relative px-4 sm:px-6 py-3">
               <div className="flex items-center space-x-4 sm:space-x-8">
             
-                {/* Enhanced Brand Section */}
+                {/* Enhanced Brand Section with Magnetic Effect */}
                 <Link 
                   href="/dashboard" 
                   className={cn(
-                    "group flex items-center space-x-2 sm:space-x-3",
-                    "hover:scale-105",
+                    "group flex items-center space-x-2 sm:space-x-3 relative",
+                    "hover:scale-105 hover:-translate-y-0.5",
+                    "hover:drop-shadow-[0_8px_16px_rgba(220,38,38,0.25)]",
+                    "transform-gpu will-change-transform",
                     animations.transition.default
                   )}
                 >
@@ -109,6 +111,46 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
                 {/* Enhanced User Info */}
                 <div className="flex items-center space-x-4">
+                  {/* User Avatar with Status */}
+                  <div className="group relative">
+                    <div className="relative">
+                      {/* Avatar Container with Magnetic Hover */}
+                      <div className={cn(
+                        "w-10 h-10 rounded-full relative overflow-hidden",
+                        "bg-gradient-to-br from-red-500/20 to-red-600/5 dark:from-red-400/15 dark:to-red-600/5",
+                        "backdrop-blur-sm border border-white/40 dark:border-white/20",
+                        "hover:scale-110 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/25",
+                        "transform-gpu will-change-transform cursor-pointer",
+                        animations.transition.default
+                      )}>
+                        {/* Avatar Image or Initials */}
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-sm font-semibold text-red-600 dark:text-red-400">
+                            {user.email?.charAt(0).toUpperCase() || 'U'}
+                          </span>
+                        </div>
+                        
+                        {/* Online Status Indicator */}
+                        <div className={cn(
+                          "absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white dark:border-gray-800",
+                          "bg-green-500 animate-pulse"
+                        )}></div>
+                      </div>
+
+                      {/* Hover Tooltip */}
+                      <div className={cn(
+                        "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2",
+                        "px-2 py-1 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900",
+                        "text-xs rounded-md whitespace-nowrap opacity-0 pointer-events-none",
+                        "group-hover:opacity-100 transition-opacity duration-200",
+                        "before:absolute before:top-full before:left-1/2 before:transform before:-translate-x-1/2",
+                        "before:border-4 before:border-transparent before:border-t-gray-900 dark:before:border-t-gray-100"
+                      )}>
+                        Online • {user.email}
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Enhanced Role Badge */}
                   <div className="group relative">
                     <div className={cn(
@@ -120,40 +162,70 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                       "relative px-3 py-1 text-sm font-medium rounded-full border backdrop-blur-sm",
                       "bg-white/30 dark:bg-gray-900/30 text-gray-700 dark:text-gray-200",
                       "border-white/40 dark:border-white/20 group-hover:border-red-500/40",
+                      "group-hover:scale-105 group-hover:-translate-y-0.5",
+                      "transform-gpu will-change-transform",
                       animations.transition.default
                     )}>
                       {user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Client'}
+                      
+                      {/* Role-specific notification badge */}
+                      {(user.role === 'client' || !user.role) && (
+                        <div className={cn(
+                          "absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full",
+                          "flex items-center justify-center text-[10px] text-white font-bold",
+                          "animate-bounce"
+                        )}>
+                          2
+                        </div>
+                      )}
                     </span>
                   </div>
 
                   {/* Enhanced Action Buttons */}
                   <div className="flex items-center space-x-2">
-                    {/* Enhanced Theme Toggle */}
+                    {/* Enhanced Theme Toggle with Progressive Disclosure */}
                     <div className="group relative">
                       <div className={cn(
                         "relative rounded-lg backdrop-blur-sm border p-1",
                         "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
                         "group-hover:bg-white/50 dark:group-hover:bg-gray-700/50",
+                        "hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/10",
+                        "transform-gpu will-change-transform",
                         animations.transition.default
                       )}>
                         <ThemeToggle />
                       </div>
+
+                      {/* Progressive Disclosure - Theme Options */}
+                      <div className={cn(
+                        "absolute top-full left-1/2 transform -translate-x-1/2 mt-2",
+                        "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto",
+                        "transition-all duration-300 delay-200",
+                        glassmorphism.card,
+                        "p-2 rounded-lg border border-white/20 shadow-xl"
+                      )}>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                          Theme Settings
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Enhanced Sign Out Button */}
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={handleSignOut}
-                      className={cn(
-                        "group relative overflow-hidden backdrop-blur-sm text-sm",
-                        "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
-                        "hover:bg-white/50 dark:hover:bg-gray-700/50",
-                        "hover:border-red-500/40 dark:hover:border-red-400/40",
-                        "hover:scale-105 hover:shadow-lg hover:shadow-red-500/10",
-                        animations.transition.default
-                      )}
-                    >
+                    {/* Enhanced Sign Out Button with Progressive Disclosure */}
+                    <div className="group relative">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={handleSignOut}
+                        className={cn(
+                          "group relative overflow-hidden backdrop-blur-sm text-sm",
+                          "bg-white/30 dark:bg-gray-800/30 border-white/40 dark:border-white/20",
+                          "hover:bg-white/50 dark:hover:bg-gray-700/50",
+                          "hover:border-red-500/40 dark:hover:border-red-400/40",
+                          "hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/20",
+                          "transform-gpu will-change-transform",
+                          animations.transition.default
+                        )}
+                      >
                       <div className={cn(
                         "absolute inset-0 bg-gradient-to-r from-red-600/8 to-red-500/8",
                         "opacity-0 group-hover:opacity-100",
@@ -162,7 +234,38 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
                       <span className="relative font-medium text-gray-700 dark:text-gray-200 group-hover:text-gray-800 dark:group-hover:text-gray-100">
                         Sign Out
                       </span>
-                    </Button>
+                      </Button>
+
+                      {/* Progressive Disclosure - Sign Out Options */}
+                      <div className={cn(
+                        "absolute top-full right-0 mt-2 w-48",
+                        "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto",
+                        "transition-all duration-300 delay-300",
+                        glassmorphism.card,
+                        "p-3 rounded-lg border border-white/20 shadow-xl"
+                      )}>
+                        <div className="space-y-2">
+                          <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                            Quick Actions
+                          </div>
+                          <div className="flex flex-col space-y-1">
+                            <button className="text-xs text-left px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-950/50 text-gray-700 dark:text-gray-300">
+                              Account Settings
+                            </button>
+                            <button className="text-xs text-left px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-950/50 text-gray-700 dark:text-gray-300">
+                              Profile
+                            </button>
+                            <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
+                            <button 
+                              onClick={handleSignOut}
+                              className="text-xs text-left px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-950/50 text-red-600 dark:text-red-400 font-medium"
+                            >
+                              Sign Out
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
