@@ -5,8 +5,6 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 import { AdminDashboard } from '@/components/dashboard/admin-dashboard'
 import { CoachDashboard } from '@/components/dashboard/coach-dashboard'
 import { ClientDashboard } from '@/components/dashboard/client-dashboard'
-import { RecruiterDashboard } from '@/components/dashboard/recruiter-dashboard'
-import { ParentDashboard } from '@/components/dashboard/parent-dashboard'
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()
@@ -30,12 +28,6 @@ export default function DashboardPage() {
         return <CoachDashboard />
       case 'client':
         return <ClientDashboard />
-      case 'athlete':
-        return <ClientDashboard />
-      case 'recruiter':
-        return <RecruiterDashboard />
-      case 'parent':
-        return <ParentDashboard />
       default:
         console.log('Dashboard: Falling back to ClientDashboard for role:', user?.role)
         return <ClientDashboard />
