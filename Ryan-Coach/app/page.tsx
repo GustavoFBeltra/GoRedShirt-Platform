@@ -88,8 +88,9 @@ export default function Home() {
       <div className="relative z-10">
         {/* Enhanced Floating Pill Navigation */}
         <nav className={cn(
-          "fixed top-4 left-1/2 transform -translate-x-1/2 z-50",
+          "fixed top-4 left-1/2 -translate-x-1/2 z-50",
           "animate-fade-in-down",
+          "w-auto max-w-[calc(100vw-2rem)]",
           animations.transition.smooth
         )}>
           {/* Floating pill container */}
@@ -108,14 +109,14 @@ export default function Home() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500/10 via-transparent to-red-500/10 rounded-full blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
             
               {/* Navigation content */}
-              <div className="relative px-6 py-3">
-                <div className="flex items-center space-x-8">
+              <div className="relative px-4 sm:px-6 py-3">
+                <div className="flex items-center space-x-4 sm:space-x-8">
               
                   {/* Enhanced Brand Section */}
                   <Link 
                     href="/" 
                     className={cn(
-                      "group flex items-center space-x-3",
+                      "group flex items-center space-x-2 sm:space-x-3",
                       "hover:scale-105",
                       animations.transition.default
                     )}
