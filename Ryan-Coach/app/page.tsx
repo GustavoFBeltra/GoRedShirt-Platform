@@ -87,12 +87,17 @@ export default function Home() {
       {/* Content Overlay */}
       <div className="relative z-10">
         {/* Enhanced Floating Pill Navigation */}
-        <nav className={cn(
-          "fixed top-4 left-1/2 -translate-x-1/2 z-50",
-          "animate-fade-in-down",
-          "w-auto max-w-[calc(100vw-2rem)]",
-          animations.transition.smooth
-        )}>
+        <nav 
+          className={cn(
+            "fixed top-4 z-50",
+            "animate-fade-in-down",
+            animations.transition.smooth
+          )}
+          style={{
+            left: '50%',
+            transform: 'translateX(-50%)'
+          }}
+        >
           {/* Floating pill container */}
           <div className="relative">
             {/* Glass morphism pill with enhanced blur */}
