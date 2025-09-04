@@ -95,11 +95,12 @@ export default function Home() {
           )}
           style={{
             left: '50%',
-            transform: 'translateX(-50%)'
+            transform: 'translateX(-50%)',
+            width: 'fit-content'
           }}
         >
-          {/* Floating pill container */}
-          <div className="relative">
+            {/* Floating pill container */}
+            <div className="relative">
             {/* Glass morphism pill with enhanced blur */}
             <div className={cn(
               glassmorphism.nav,

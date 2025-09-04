@@ -55,7 +55,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         )}
         style={{
           left: '50%',
-          transform: 'translateX(-50%)'
+          transform: 'translateX(-50%)',
+          width: 'fit-content'
         }}
       >
         {/* Floating pill container */}
