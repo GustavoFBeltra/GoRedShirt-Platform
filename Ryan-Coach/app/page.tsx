@@ -161,22 +161,22 @@ export default function Home() {
                 </div>
                 
                 <div className="animate-fade-in-up" style={staggeredDelay(3)}>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-12">
                     <Link href="/register">
                       <ThemeButton size="lg" variant="primary" className="text-lg px-8 py-6 group">
                         Start Your Journey
                         <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
                       </ThemeButton>
                     </Link>
-                    <ThemeButton size="lg" variant="foundation" className="text-lg px-8 py-6 group">
-                      <Play className="mr-2 h-5 w-5 group-hover:scale-125 transition-transform" />
+                    <ThemeButton size="lg" variant="foundation" className="text-lg px-8 py-6 group hover:scale-105 transition-all duration-300">
+                      <Play className="mr-2 h-5 w-5 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300" />
                       Watch Demo
                     </ThemeButton>
                   </div>
                 </div>
 
                 <div className="animate-fade-in-up" style={staggeredDelay(4)}>
-                  <div className="flex flex-wrap items-center justify-center gap-6 mt-12">
+                  <div className="flex flex-wrap items-center justify-center gap-8 mt-16">
                     {[
                       { icon: CheckCircle, text: "Elite athlete profiles" },
                       { icon: Shield, text: "Performance tracking" },
@@ -197,9 +197,9 @@ export default function Home() {
           </section>
 
           {/* Stats Section */}
-          <section className="py-20">
+          <section className="py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
                 {[
                   { number: "25,000+", label: "Elite Athletes", icon: Trophy },
                   { number: "2,500+", label: "College Coaches", icon: Users },
@@ -467,7 +467,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid gap-8 md:grid-cols-3">
+              <div className="grid gap-8 md:gap-12 md:grid-cols-3">
                 {[
                   {
                     step: "1",
@@ -544,7 +544,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-3">
                 {[
                   {
                     quote: "GoRedShirt helped me connect with D1 coaches I never would have reached. Now I'm playing at my dream school!",
@@ -614,9 +614,10 @@ export default function Home() {
           <section className="py-24 relative">
             <ThemeCard 
               variant="interactive" 
-              className="max-w-4xl mx-auto text-center relative overflow-hidden border-0 animate-fade-in-up"
-              style={{ background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)' }}
+              className="max-w-4xl mx-auto text-center relative overflow-hidden border-0 animate-fade-in-up hover:scale-[1.02] transition-all duration-500"
+              style={{ background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%, #7f1d1d 100%)' }}
             >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               <div className="absolute inset-0 bg-white/10 backdrop-blur-sm" />
               <div className="relative space-y-6 text-white p-12">
                 <div className="flex justify-center">
@@ -639,17 +640,17 @@ export default function Home() {
                     <ThemeButton 
                       size="lg" 
                       variant="secondary" 
-                      className="text-lg px-8 py-6 bg-white text-red-600 hover:bg-gray-100"
+                      className="text-lg px-8 py-6 bg-white text-red-600 hover:bg-gray-100 hover:scale-105 hover:shadow-xl transition-all duration-300 group"
                     >
                       Start Your Journey
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </ThemeButton>
                   </Link>
                   <Link href="/login">
                     <ThemeButton 
                       size="lg" 
                       variant="ghost" 
-                      className="text-lg px-8 py-6 text-white hover:bg-white/20 border border-white/30"
+                      className="text-lg px-8 py-6 text-white hover:bg-white/20 border border-white/30 hover:border-white/50 hover:scale-105 transition-all duration-300"
                     >
                       Sign In
                     </ThemeButton>

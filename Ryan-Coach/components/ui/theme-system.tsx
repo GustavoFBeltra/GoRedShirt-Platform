@@ -204,11 +204,11 @@ export function ThemeCard({
   style 
 }: CardVariantProps) {
   const variants = {
-    default: 'border-0 shadow-lg bg-white dark:bg-gray-900',
-    glass: cn(glassmorphism.card, 'border-0', shadows.default),
+    default: 'rounded-xl border-0 shadow-lg bg-white dark:bg-gray-900',
+    glass: cn(glassmorphism.card, 'rounded-xl border-0', shadows.default),
     hover: cn(
       glassmorphism.card, 
-      'border-0', 
+      'rounded-xl border-0', 
       shadows.default,
       shadows.hoverStrong,
       animations.hover.liftScale,
@@ -217,7 +217,7 @@ export function ThemeCard({
     ),
     interactive: cn(
       glassmorphism.card,
-      'border-0',
+      'rounded-xl border-0',
       shadows.primaryShadow,
       animations.hover.liftScale,
       animations.transition.default,
