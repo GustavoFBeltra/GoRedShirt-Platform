@@ -294,16 +294,16 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-3">
                       {[
                         { icon: Target, text: "Elite performance profiles" },
                         { icon: BarChart3, text: "Advanced metrics tracking" },
                         { icon: Activity, text: "Media gallery & highlights" },
                         { icon: Users, text: "Recruiter visibility" }
                       ].map((feature, idx) => (
-                        <div key={idx} className="text-center space-y-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:scale-105 transition-all duration-200">
-                          <feature.icon className="h-5 w-5 text-slate-600 mx-auto" />
-                          <span className="text-slate-700 dark:text-slate-300 text-sm block">{feature.text}</span>
+                        <div key={idx} className="flex items-center gap-3 text-sm p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200">
+                          <feature.icon className="h-4 w-4 text-slate-600 flex-shrink-0" />
+                          <span className="text-slate-700 dark:text-slate-300">{feature.text}</span>
                         </div>
                       ))}
                     </div>
@@ -360,16 +360,16 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-3">
                       {[
                         { icon: Users, text: "Athlete discovery system" },
                         { icon: BarChart3, text: "Performance analytics" },
                         { icon: Calendar, text: "Recruiting pipeline" },
                         { icon: Shield, text: "Verified athlete data" }
                       ].map((feature, idx) => (
-                        <div key={idx} className="text-center space-y-2 p-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20 hover:scale-105 transition-all duration-200">
-                          <feature.icon className="h-5 w-5 text-red-600 mx-auto" />
-                          <span className="text-slate-700 dark:text-slate-300 text-sm block">{feature.text}</span>
+                        <div key={idx} className="flex items-center gap-3 text-sm p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/20 transition-all duration-200">
+                          <feature.icon className="h-4 w-4 text-red-600 flex-shrink-0" />
+                          <span className="text-slate-700 dark:text-slate-300">{feature.text}</span>
                         </div>
                       ))}
                     </div>
@@ -419,16 +419,16 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-3">
                       {[
                         { icon: Target, text: "Advanced search filters" },
                         { icon: BarChart3, text: "Performance comparisons" },
                         { icon: Users, text: "Prospect management" },
                         { icon: Heart, text: "Direct communication" }
                       ].map((feature, idx) => (
-                        <div key={idx} className="text-center space-y-2 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:scale-105 transition-all duration-200">
-                          <feature.icon className="h-5 w-5 text-slate-600 mx-auto" />
-                          <span className="text-slate-700 dark:text-slate-300 text-sm block">{feature.text}</span>
+                        <div key={idx} className="flex items-center gap-3 text-sm p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200">
+                          <feature.icon className="h-4 w-4 text-slate-600 flex-shrink-0" />
+                          <span className="text-slate-700 dark:text-slate-300">{feature.text}</span>
                         </div>
                       ))}
                     </div>
